@@ -29,7 +29,7 @@ const storage = new CloudinaryStorage({
   params: {
     folder: 'GCAS_Applications', 
     resource_type: 'auto',
-    allowed_formats: ['jpg', 'png', 'pdf', 'jpeg'],
+    allowed_formats: ['jpg', 'png', 'jpeg'],
   },
 });
 const upload = multer({ storage: storage });

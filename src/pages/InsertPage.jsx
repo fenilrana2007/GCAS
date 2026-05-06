@@ -33,7 +33,7 @@ const InsertPage = () => {
             const validTypes = ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'];
             if (!validTypes.includes(file.type)) {
                 setStatusMsg({ 
-                    text: `${e.target.name} must be JPEG, PNG, or PDF`, 
+                    text: `${e.target.name} must be JPEG, PNG, or JPG`, 
                     type: 'error' 
                 });
                 e.target.value = '';
@@ -235,7 +235,7 @@ const InsertPage = () => {
                                 <h2 className="text-xl font-semibold text-gray-800 mb-4 pb-2 border-b-2 border-blue-100">
                                     Required Documents
                                 </h2>
-                                <p className="text-sm text-gray-500 mb-4">Upload clear scanned copies (Max 5MB each, JPEG/PNG/PDF)</p>
+                                <p className="text-sm text-gray-500 mb-4">Upload clear scanned copies (Max 5MB each, JPEG/PNG/JPG)</p>
                                 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                                     {fileFields.map((field) => (
