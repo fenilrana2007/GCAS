@@ -28,6 +28,7 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: 'GCAS_Applications', 
+    resource_type: 'auto',
     allowed_formats: ['jpg', 'png', 'pdf', 'jpeg'],
   },
 });
