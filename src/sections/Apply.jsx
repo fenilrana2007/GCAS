@@ -1,10 +1,11 @@
 import React, { useState } from 'react'; // Added useState
-import { motion, AnimatePresence } from 'framer-motion'; // Added AnimatePresence
+import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, ShieldCheck, Zap, ArrowLeft } from 'lucide-react';
 import InsertPage from '../pages/InsertPage'; // Import your form component
 
 const Apply = () => {
-  const [showForm, setShowForm] = useState(false); // State to toggle form
+  // State to toggle between the marketing info and the actual form
+  const [isApplying, setIsApplying] = useState(false);
 
   return (
     <section id="apply" className="py-24 relative overflow-hidden">
@@ -14,13 +15,14 @@ const Apply = () => {
         <div className="glass rounded-[3rem] p-8 md:p-16 border border-slate-200 overflow-hidden relative">
           
           <AnimatePresence mode="wait">
-            {!showForm ? (
-              /* --- PART 1: MARKETING VIEW (Original Content) --- */
+            {!isApplying ? (
+              /* --- VIEW 1: Information and "Start" Button --- */
               <motion.div
-                key="marketing"
+                key="info-view"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
                 className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
               >
                 <div>
@@ -29,47 +31,72 @@ const Apply = () => {
                   </h2>
                   <p className="text-xl text-slate-600 mb-10 leading-relaxed">
                     Start your application process immediately. Our experts will get in touch with 
-                    you as soon as you submit your details.
+                    you as soon as you submit your details through our secure portal.
                   </p>
 
-                  {/* ... (Keep your Required Documents & Pricing divs here) ... */}
+                  <div className="mb-8">
+                    <h3 className="text-xl font-bold text-slate-900 mb-4">Required Documents</h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {[
+                        'Adhar Card', '10th Marksheet', '12th Marksheet',
+                        'Caste Certificate', 'Non Creamy Layer', 'School Leaving',
+                        'Income Certificate', 'Passport Photo',
+                      ].map((doc) => (
+                        <div key={doc} className="flex items-center gap-2">
+                          <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                            <ShieldCheck size={14} className="text-primary" />
+                          </div>
+                          <span className="text-slate-600 text-sm">{doc}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
 
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={() => setShowForm(true)} // Set to true to show form
+                    onClick={() => setIsApplying(true)} // Toggles to the form
                     className="px-10 py-5 bg-gradient-to-r from-primary to-secondary text-white rounded-2xl font-bold text-lg flex items-center gap-3 shadow-xl shadow-primary/30 group"
                   >
-                    Start Application <ExternalLink size={20} />
+                    Start Application <ExternalLink size={20} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                   </motion.button>
                 </div>
 
-                {/* Right side Visual (Keep original or remove) */}
-                <div className="hidden lg:block h-[400px] bg-slate-100 rounded-3xl border-dashed border-2 border-slate-300 flex items-center justify-center">
-                   <p className="text-slate-400 font-medium">Form will load here upon clicking start</p>
+                {/* Right Side Visual */}
+                <div className="hidden lg:flex h-[500px] rounded-2xl bg-slate-50/50 border-2 border-dashed border-slate-200 items-center justify-center text-center p-8">
+                  <div>
+                    <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Zap size={40} className="text-primary" />
+                    </div>
+                    <h4 className="text-xl font-bold text-slate-800">Ready to begin?</h4>
+                    <p className="text-slate-500">Click the button to load the secure application form.</p>
+                  </div>
                 </div>
               </motion.div>
             ) : (
-              /* --- PART 2: FORM VIEW (Your InsertPage) --- */
+              /* --- VIEW 2: The InsertPage Form --- */
               <motion.div
-                key="form"
+                key="form-view"
                 initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -50 }}
+                transition={{ duration: 0.5 }}
+                className="relative"
               >
+                {/* Back Button */}
                 <button 
-                  onClick={() => setShowForm(false)} 
-                  className="flex items-center gap-2 text-primary font-bold mb-6 hover:underline"
+                  onClick={() => setIsApplying(false)}
+                  className="flex items-center gap-2 text-slate-500 hover:text-primary transition-colors mb-8 font-semibold"
                 >
-                  <ArrowLeft size={18} /> Back to info
+                  <ArrowLeft size={20} /> Back to Requirements
                 </button>
-                
-                {/* Rendering your custom form component here */}
-                <InsertPage /> 
+
+                {/* Your Form Component */}
+                <InsertPage />
               </motion.div>
             )}
           </AnimatePresence>
-          
+
         </div>
       </div>
     </section>
