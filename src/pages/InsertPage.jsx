@@ -19,7 +19,7 @@ const InsertPage = () => {
 
         try {
             // const res = await fetch('http://localhost:5000/api/apply', { method: 'POST', body: data });
-            const res = await fetch('https://your-backend-service.onrender.com/api/apply', { 
+            const res = await fetch('https://gcas-2t9t.onrender.com/api/apply', { 
                         method: 'POST', 
                         body: data 
        });
